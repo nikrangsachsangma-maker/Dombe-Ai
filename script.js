@@ -10,7 +10,7 @@
 
     setInterval(async () => {
       try {
-        const res = await fetch('https://gamingtahmid1yt.github.io/chatbot-server/server.json?v=' + Date.now());
+        const res = await fetch('.  https://github.com/nikrangsachsangma-maker/Dombe-Ai/blob/main/script.js/chatbot-server/server.json?v=' + Date.now());
         const data = await res.json();
         if (data.status === 'off') {
           document.body.innerHTML = `
