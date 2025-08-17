@@ -10,7 +10,7 @@
 
     setInterval(async () => {
       try {
-        const res = await fetch('.https://github.com/nikrangsachsangma-maker/Server.json=' + Date.now());
+        const res = await fetch('.https://github.com/nikrangsachsangma-maker/Server.json' + Date.now());
         const data = await res.json();
         if (data.status === 'on') {
           document.body.innerHTML = `
@@ -86,7 +86,7 @@ Size: ~22-26 MB 100% Free & Safe No Login/Data Collection
 Links:
 AI ChatBot Website: https://github.com/nikrangsachsangma-maker/Dombe-Ai
 APK:https://github.com/nikrangsachsangma-maker/Dombe-Aior Settings > Download.
-Privacy Policy: https://gamingtahmid1yt.github.io/nexora.ai-privacy/ or Settings > Privacy
+Privacy Policy:  or Settings > Privacy
 ImaageAI: 
 Multilingual, polite, human-like replies with emojis.  
 Current Date and Time: ${new Date().toDateString()}, ${new Date().toLocaleTimeString()}  
@@ -289,7 +289,7 @@ Ex-CM: Dr.Mukul Sangma (2009–2017), resigned in 5 August, 2017,.
         }]
       };
 
-      let response = await fetch('https://api.tahmideditofficial.workers.dev', {
+      let response = await fetch('https://github.com/nikrangsachsangma-maker/Server.json ', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(reqBody)
@@ -352,7 +352,7 @@ Ex-CM: Dr.Mukul Sangma (2009–2017), resigned in 5 August, 2017,.
               messages: messagesArray
             };
 
-            const followRes = await fetch('https://api.tahmideditofficial.workers.dev', {
+            const followRes = await fetch('https://github.com/nikrangsachsangma-maker/Server.json', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(followupReq)
