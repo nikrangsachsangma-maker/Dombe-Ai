@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dombe AI</title>
+  <meta name="description" content="An interactive AI ChatBot made by Nikrangra with dark/light mode and other lot of features, no data is collected all data stays in your local storage">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="/Dombe-Ai.png">
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="spinner"></div>
+    <p class="blinking">Loading Dombe AI...</p>
+  </div>
+  
+  <!-- Top bar -->
+  <div id="top-box">
+    <h1>Dombe AI</h1>
+    <div class="top-buttons">
+      <a href="settings.html" id="settings-btn" aria-label="Settings">⚙️</a>
+      <button id="theme-switch" title="Toggle Dark/Light Mode" aria-label="Toggle theme">🌙</button>
+    </div>
+  </div>
+  
+  <!-- Main Chat UI -->
+  <div id="app-container">
+    <div id="chat-box" role="log" aria-live="polite"></div>
+    
+    <!-- Input Form -->
+    <form id="input-form" aria-label="Chat input form">
+      <input 
+        id="user-input" 
+        type="text" 
+        placeholder="Type a message..." 
+        autocomplete="off"
+        aria-label="Type your message"
+      />
+      <button type="submit" id="send-btn" aria-label="Send message">Send</button>
+    </form>
+    
+    <!-- Scroll to Bottom Button -->
+    <button id="scroll-to-bottom" title="Scroll to bottom" aria-label="Scroll to bottom">⇩</button>
+  </div>
+  
+  <!-- JavaScript connection -->
+  <script src="script.js" defer></script>
+  
+  <!-- Loading screen handler -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const loader = document.getElementById('loading-screen');
+        const app = document.getElementById('app-container');
+        if (loader) {
+          loader.style.opacity = '0';
+          setTimeout(() => loader.style.display = 'none', 600);
+        }
+        if (app) app.style.opacity = '1';
+      }, 100);
+    });
+  </script>
+</body>
+</html>

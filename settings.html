@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings - Dombe AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="/Dombe-Ai.png">
+  <meta name="description" content="Dombe AI Settings - Customize your experience, manage data, and get support">
+  <meta name="theme-color" content="#4361ee">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-hover: #3a56d4;
+      --primary-light: rgba(67, 97, 238, 0.1);
+      --success: #4cc9f0;
+      --success-hover: #38b6db;
+      --success-light: rgba(76, 201, 240, 0.1);
+      --danger: #f72585;
+      --danger-hover: #e5177b;
+      --danger-light: rgba(247, 37, 133, 0.1);
+      --warning: #f8961e;
+      --warning-hover: #e68a1a;
+      --warning-light: rgba(248, 150, 30, 0.1);
+      --dark: #212529;
+      --darker: #1a1e21;
+      --light: #f8f9fa;
+      --lighter: #ffffff;
+      --gray: #6c757d;
+      --border-radius: 16px;
+      --border-radius-sm: 8px;
+      --box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --box-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --glass-effect: backdrop-filter: blur(16px) saturate(180%);
+      --glass-bg: rgba(255, 255, 255, 0.75);
+      --glass-border: 1px solid rgba(255, 255, 255, 0.125);
+    }
+
+    /* Dark mode variables */
+    [data-theme="dark"] {
+      --dark: #f8f9fa;
+      --darker: #e9ecef;
+      --light: #121212;
+      --lighter: #1e1e1e;
+      --gray: #adb5bd;
+      --box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+      --glass-bg: rgba(30, 30, 30, 0.75);
+      --glass-border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+      background-image: radial-gradient(circle at 25% 25%, rgba(67, 97, 238, 0.1) 0%, transparent 50%);
+    }
+
+    [data-theme="dark"] body {
+      background-image: radial-gradient(circle at 75% 75%, rgba(67, 97, 238, 0.1) 0%, transparent 50%);
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--success);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--box-shadow);
+      margin-bottom: 2rem;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .back-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .back-btn:hover {
+      background-color: var(--success-hover);
+      transform: translateY(-2px);
+    }
+
+    .back-btn:hover::before {
+      left: 100%;
+    }
+
+    .back-btn i {
+      font-size: 0.9rem;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+      position: relative;
+      display: inline-block;
+      background: linear-gradient(90deg, var(--primary), var(--success));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .header h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--success));
+      border-radius: 3px;
+    }
+
+    .card {
+      background-color: var(--lighter);
+      border-radius: var(--border-radius);
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    [data-theme="dark"] .card {
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--success));
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--box-shadow-lg);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-header i {
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--success));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .card-header h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 0.875rem;
+      border: none;
+      border-radius: var(--border-radius-sm);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn:hover::after {
+      opacity: 1;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-success {
+      background-color: var(--success);
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: var(--success-hover);
+    }
+
+    .btn-danger {
+      background-color: var(--danger);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: var(--danger-hover);
+    }
+
+    .btn-warning {
+      background-color: var(--warning);
+      color: white;
+    }
+
+    .btn-warning:hover {
+      background-color: var(--warning-hover);
+    }
+
+    .btn-glass {
+      background: var(--glass-bg);
+      border: var(--glass-border);
+      var(--glass-effect);
+      color: var(--dark);
+      backdrop-filter: blur(16px) saturate(180%);
+    }
+
+    [data-theme="dark"] .btn-glass {
+      color: var(--dark);
+    }
+
+    .btn-glass:hover {
+      background: var(--glass-bg);
+      opacity: 0.9;
+    }
+
+    .status-msg {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: var(--border-radius-sm);
+      text-align: center;
+      display: none;
+      animation: fadeIn 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .success-msg {
+      background-color: var(--success-light);
+      color: var(--success-hover);
+      border: 1px solid rgba(76, 201, 240, 0.3);
+    }
+
+    .error-msg {
+      background-color: var(--danger-light);
+      color: var(--danger-hover);
+      border: 1px solid rgba(247, 37, 133, 0.3);
+    }
+
+    .settings-group {
+      margin-top: 1.5rem;
+    }
+
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="dark"] .setting-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .setting-item:last-child {
+      border-bottom: none;
+    }
+
+    .setting-label {
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .setting-description {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-top: 0.25rem;
+    }
+
+    .setting-value {
+      font-weight: 500;
+      color: var(--gray);
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background: linear-gradient(90deg, var(--primary), var(--success));
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    /* Advanced toggle switch */
+    .advanced-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .advanced-toggle-label {
+      font-weight: 500;
+      color: var(--dark);
+      font-size: 0.95rem;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--dark);
+      color: var(--light);
+      padding: 12px 24px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow-lg);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      backdrop-filter: blur(10px);
+      background-color: rgba(33, 37, 41, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="dark"] .toast {
+      background-color: rgba(248, 249, 250, 0.9);
+      color: var(--dark);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast.hide {
+      opacity: 0;
+      transform: translateX(-50%) translateY(20px);
+    }
+
+    .toast i {
+      font-size: 1.2rem;
+    }
+
+    .toast.success {
+      background-color: rgba(76, 201, 240, 0.9);
+      color: white;
+    }
+
+    .toast.error {
+      background-color: rgba(247, 37, 133, 0.9);
+      color: white;
+    }
+
+    .toast.warning {
+      background-color: rgba(248, 150, 30, 0.9);
+      color: white;
+    }
+
+    /* Loading spinner */
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    /* Confirmation modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background-color: var(--lighter);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: var(--box-shadow-lg);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    [data-theme="dark"] .modal {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .modal-header i {
+      font-size: 2.5rem;
+      color: var(--danger);
+      margin-bottom: 1rem;
+    }
+
+    .modal-header h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .modal-body {
+      margin-bottom: 2rem;
+      color: var(--gray);
+      text-align: center;
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .modal-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+    }
+
+    .modal-btn-cancel {
+      background-color: var(--gray);
+      color: white;
+    }
+
+    .modal-btn-cancel:hover {
+      background-color: #5a6268;
+    }
+
+    .modal-btn-confirm {
+      background-color: var(--danger);
+      color: white;
+    }
+
+    .modal-btn-confirm:hover {
+      background-color: var(--danger-hover);
+    }
+
+    /* Theme selector */
+    .theme-selector {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .theme-option {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .theme-option:hover {
+      transform: scale(1.1);
+    }
+
+    .theme-option.active {
+      border: 2px solid var(--dark);
+      transform: scale(1.1);
+    }
+
+    [data-theme="dark"] .theme-option.active {
+      border: 2px solid var(--light);
+    }
+
+    .theme-option[data-theme="default"] {
+      background: linear-gradient(135deg, #4361ee, #4cc9f0);
+    }
+
+    .theme-option[data-theme="sunset"] {
+      background: linear-gradient(135deg, #f72585, #f8961e);
+    }
+
+    .theme-option[data-theme="forest"] {
+      background: linear-gradient(135deg, #2ec4b6, #4cc9f0);
+    }
+
+    .theme-option[data-theme="midnight"] {
+      background: linear-gradient(135deg, #7209b7, #4361ee);
+    }
+
+    /* Animations */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Responsive styles */
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 1rem;
+      }
+      
+      .header h2 {
+        font-size: 1.75rem;
+      }
+      
+      .card {
+        padding: 1.5rem;
+      }
+
+      .modal-footer {
+        flex-direction: column;
+      }
+
+      .modal-btn {
+        width: 100%;
+      }
+    }
+
+    /* Floating action button */
+    .fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--success));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--box-shadow-lg);
+      cursor: pointer;
+      z-index: 100;
+      transition: var(--transition);
+    }
+
+    .fab:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    .fab i {
+      font-size: 1.5rem;
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltip-text {
+      visibility: hidden;
+      width: 120px;
+      background-color: var(--dark);
+      color: var(--light);
+      text-align: center;
+      border-radius: var(--border-radius-sm);
+      padding: 0.5rem;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+    }
+
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      border-radius: 10rem;
+      background-color: var(--primary);
+      color: white;
+    }
+
+    /* Progress bar */
+    .progress-container {
+      width: 100%;
+      height: 8px;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
+
+    [data-theme="dark"] .progress-container {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--success));
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    /* Accordion */
+    .accordion {
+      margin-top: 1rem;
+    }
+
+    .accordion-item {
+      border-radius: var(--border-radius-sm);
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="dark"] .accordion-item {
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .accordion-header {
+      padding: 1rem;
+      background-color: var(--lighter);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 500;
+    }
+
+    .accordion-content {
+      padding: 0 1rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      background-color: var(--lighter);
+    }
+
+    .accordion-item.active .accordion-content {
+      padding: 1rem;
+      max-height: 500px;
+    }
+
+    .accordion-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .accordion-item.active .accordion-icon {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="https://github.com/nikrangsachsangma-maker/Dombe-Ai" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Back to Dombe AI
+    </a>
+
+    <div class="header">
+      <h2><i class="fas fa-cog"></i> Settings</h2>
+    </div>
+
+    <!-- Account & Privacy Card -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-user-shield"></i>
+        <h3>Account & Privacy</h3>
+      </div>
+      
+      <div class="settings-group">
+        <div class="setting-item">
+          <div>
+            <div class="setting-label">Dark Mode</div>
+            <div class="setting-description">Switch between light and dark theme</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-item">
+          <div>
+            <div class="setting-label">Theme Color</div>
+            <div class="setting-description">Choose your preferred accent color</div>
+          </div>
+          <div class="theme-selector">
+            <div class="theme-option active" data-theme="default" title="Default"></div>
+            <div class="theme-option" data-theme="sunset" title="Sunset"></div>
+            <div class="theme-option" data-theme="forest" title="Forest"></div>
+            <div class="theme-option" data-theme="midnight" title="Midnight"></div>
+          </div>
+        </div>
+
+        <div class="setting-item">
+          <div>
+            <div class="setting-label">Sync Across Devices (Not Working)</div>
+            <div class="setting-description">Keep your settings consistent on all devices</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="syncToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Management Card -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-broom"></i>
+        <h3>Data Management</h3>
+      </div>
+      
+      <div class="accordion">
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span>Storage Usage</span>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="progress-container">
+              <div class="progress-bar" id="storageBar" style="width: 35%"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>2.1 MB used</span>
+              <span>6 MB total</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <button class="btn btn-danger" id="clearDataBtn">
+        <i class="fas fa-trash-alt"></i> Clear All Chat Data
+      </button>
+      <div class="status-msg success-msg" id="clearStatus">
+        <i class="fas fa-check-circle"></i> All chat history and data cleared successfully!
+      </div>
+    </div>
+
+    <!-- Mobile App Card -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-mobile-alt"></i>
+        <h3>Mobile App</h3>
+      </div>
+      
+      <button class="btn btn-success" onclick="window.location.href='https://github.com/nikrangsachsangma-maker/Dombe-Ai'">
+        <i class="fas fa-download"></i> Download Dombe AI APK
+      </button>
+      
+      <div class="setting-description" style="margin-top: 0.75rem; text-align: center;">
+        Get the Android app for better experience
+      </div>
+      
+      <div class="setting-item" style="margin-top: 1rem; justify-content: center;">
+        <div class="badge">
+          <i class="fas fa-star"></i> New in v2025.08
+        </div>
+      </div>
+    </div>
+
+    <!-- About & Support Card -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-info-circle"></i>
+        <h3>About & Support</h3>
+      </div>
+      
+      <button class="btn btn-primary" onclick="window.open('mailto:nikrangsachsangma@gmail.com','_blank')">
+        <i class="fas fa-envelope"></i> Contact Developer
+      </button>
+      
+      <button class="btn btn-primary" style="margin-top: 1rem;" onclick="window.location.href='https://github.com/nikrangsachsangma-maker/Dombe-Ai'">
+        <i class="fas fa-shield-alt"></i> Privacy Policy
+      </button>
+
+      <button class="btn btn-warning" style="margin-top: 1rem;" onclick="showToast('New features coming soon!', 'info')">
+        <i class="fas fa-lightbulb"></i> Feature Request
+      </button>
+      
+      <div class="setting-item" style="margin-top: 1.5rem; justify-content: center;">
+        <div class="tooltip">
+          <i class="fas fa-question-circle" style="font-size: 1.2rem; color: var(--gray);"></i>
+          <span class="tooltip-text">Need help? Contact for support</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- App Information Card -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-code-branch"></i>
+        <h3>App Information</h3>
+      </div>
+      
+      <div class="settings-group">
+        <div class="setting-item">
+          <div class="setting-label">Version</div>
+          <div class="setting-value" id="appVersion">2025.08</div>
+        </div>
+        
+        <div class="setting-item">
+          <div class="setting-label">Last Updated</div>
+          <div class="setting-value">August 17, 2025</div>
+        </div>
+        
+        <div class="setting-item">
+          <div class="setting-label">Developer</div>
+          <div class="setting-value">Nikrangra</div>
+        </div>
+        
+        <div class="setting-item">
+          <div class="setting-label">Build ID</div>
+          <div class="setting-value">DB-20250812-RELEASE</div>
+        </div>
+      </div>
+      
+      <button class="btn btn-glass" style="margin-top: 1rem;" onclick="checkForUpdates()">
+        <i class="fas fa-sync-alt"></i> Check for Updates
+      </button>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab" id="fab" onclick="scrollToTop()">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+      <i class="fas fa-info-circle"></i>
+      <span id="toast-message">This is a toast message</span>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmationModal">
+      <div class="modal">
+        <div class="modal-header">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h3>Confirm Action</h3>
+        </div>
+        <div class="modal-body" id="modalMessage">
+          Are you sure you want to clear all chat data? This action cannot be undone.
+        </div>
+        <div class="modal-footer">
+          <button class="modal-btn modal-btn-cancel" id="cancelBtn">Cancel</button>
+          <button class="modal-btn modal-btn-confirm" id="confirmBtn">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // DOM Elements
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const syncToggle = document.getElementById('syncToggle');
+    const clearDataBtn = document.getElementById('clearDataBtn');
+    const clearStatus = document.getElementById('clearStatus');
+    const appVersion = document.getElementById('appVersion');
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toast-message');
+    const confirmationModal = document.getElementById('confirmationModal');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const modalMessage = document.getElementById('modalMessage');
+    const fab = document.getElementById('fab');
+    const themeOptions = document.querySelectorAll('.theme-option');
+    const accordionItems = document.querySelectorAll('.accordion-item');
+    const storageBar = document.getElementById('storageBar');
+
+    // Initialize settings from localStorage
+    function initSettings() {
+      // Dark mode
+      const darkMode = localStorage.getItem('darkMode') === 'true';
+      darkModeToggle.checked = darkMode;
+      toggleDarkMode(darkMode);
+      
+      // Sync setting
+      const syncEnabled = localStorage.getItem('syncEnabled') === 'true';
+      syncToggle.checked = syncEnabled;
+      
+      // Theme color
+      const themeColor = localStorage.getItem('themeColor') || 'default';
+      setThemeColor(themeColor);
+      
+      // App version
+      appVersion.textContent = '2025.08';
+      
+      // Calculate storage usage (simulated)
+      updateStorageUsage();
+      
+      // Check scroll position for FAB
+      window.addEventListener('scroll', toggleFabVisibility);
+    }
+
+    // Toggle dark mode
+    function toggleDarkMode(enable) {
+      if (enable) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#121212');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#4361ee');
+      }
+    }
+
+    // Set theme color
+    function setThemeColor(theme) {
+      // Reset all theme options
+      themeOptions.forEach(option => option.classList.remove('active'));
+      
+      // Activate selected theme
+      document.querySelector(`.theme-option[data-theme="${theme}"]`).classList.add('active');
+      
+      // Update CSS variables based on theme
+      if (theme === 'sunset') {
+        document.documentElement.style.setProperty('--primary', '#f72585');
+        document.documentElement.style.setProperty('--primary-hover', '#e5177b');
+        document.documentElement.style.setProperty('--success', '#f8961e');
+        document.documentElement.style.setProperty('--success-hover', '#e68a1a');
+      } else if (theme === 'forest') {
+        document.documentElement.style.setProperty('--primary', '#2ec4b6');
+        document.documentElement.style.setProperty('--primary-hover', '#29b3a6');
+        document.documentElement.style.setProperty('--success', '#4cc9f0');
+        document.documentElement.style.setProperty('--success-hover', '#38b6db');
+      } else if (theme === 'midnight') {
+        document.documentElement.style.setProperty('--primary', '#7209b7');
+        document.documentElement.style.setProperty('--primary-hover', '#6508a5');
+        document.documentElement.style.setProperty('--success', '#4361ee');
+        document.documentElement.style.setProperty('--success-hover', '#3a56d4');
+      } else { // default
+        document.documentElement.style.setProperty('--primary', '#4361ee');
+        document.documentElement.style.setProperty('--primary-hover', '#3a56d4');
+        document.documentElement.style.setProperty('--success', '#4cc9f0');
+        document.documentElement.style.setProperty('--success-hover', '#38b6db');
+      }
+    }
+
+    // Update storage usage display
+    function updateStorageUsage() {
+      // Simulate calculating storage usage
+      const used = Math.floor(Math.random() * 5) + 1; // 1-5 MB
+      const total = 6; // MB
+      const percent = Math.min(Math.floor((used / total) * 100), 100);
+      
+      storageBar.style.width = `${percent}%`;
+      
+      // Update text display
+      const accordionContent = document.querySelector('.accordion-content');
+      if (accordionContent) {
+        accordionContent.querySelector('span:first-child').textContent = `${used}.${Math.floor(Math.random() * 9)} MB used`;
+      }
+    }
+
+    // Show confirmation modal
+    function showConfirmation(message, confirmCallback) {
+      modalMessage.textContent = message;
+      confirmationModal.classList.add('active');
+      
+      // Set up event listeners
+      const handleConfirm = () => {
+        confirmationModal.classList.remove('active');
+        confirmCallback();
+        confirmBtn.removeEventListener('click', handleConfirm);
+        cancelBtn.removeEventListener('click', handleCancel);
+      };
+      
+      const handleCancel = () => {
+        confirmationModal.classList.remove('active');
+        confirmBtn.removeEventListener('click', handleConfirm);
+        cancelBtn.removeEventListener('click', handleCancel);
+      };
+      
+      confirmBtn.addEventListener('click', handleConfirm);
+      cancelBtn.addEventListener('click', handleCancel);
+    }
+
+    // Clear all data
+    function clearAllData() {
+      showConfirmation('Are you sure you want to clear all chat data? This cannot be undone.', () => {
+        // Show loading state
+        const btn = clearDataBtn;
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = `<span class="spinner"></span> Clearing...`;
+        btn.disabled = true;
+        
+        // Simulate async operation
+        setTimeout(() => {
+          localStorage.removeItem('chat_history');
+          localStorage.removeItem('theme');
+          localStorage.removeItem('conversations');
+          
+          // Restore button
+          btn.innerHTML = originalHTML;
+          btn.disabled = false;
+          
+          // Show success message
+          clearStatus.style.display = "block";
+          showToast('All data cleared successfully', 'success');
+          updateStorageUsage();
+          
+          setTimeout(() => {
+            clearStatus.style.display = "none";
+          }, 5000);
+        }, 1000);
+      });
+    }
+
+    // Check for updates
+    function checkForUpdates() {
+      showToast('Checking for updates...', 'info');
+      
+      // Simulate update check
+      setTimeout(() => {
+        showToast('You are using the latest version', 'success');
+      }, 2000);
+    }
+
+    // Show toast notification
+    function showToast(message, type = 'info') {
+      toastMessage.textContent = message;
+      toast.className = 'toast';
+      
+      // Set type-specific styles and icon
+      if (type === 'success') {
+        toast.classList.add('success');
+        toast.querySelector('i').className = 'fas fa-check-circle';
+      } else if (type === 'error') {
+        toast.classList.add('error');
+        toast.querySelector('i').className = 'fas fa-exclamation-circle';
+      } else if (type === 'warning') {
+        toast.classList.add('warning');
+        toast.querySelector('i').className = 'fas fa-exclamation-triangle';
+      } else {
+        toast.querySelector('i').className = 'fas fa-info-circle';
+      }
+      
+      toast.classList.add('show');
+      
+      // Hide after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          toast.classList.add('hide');
+          setTimeout(() => {
+            toast.classList.remove('hide');
+          }, 300);
+        }, 2700);
+      }, 0);
+    }
+
+    // Toggle FAB visibility based on scroll position
+    function toggleFabVisibility() {
+      if (window.scrollY > 300) {
+        fab.style.display = 'flex';
+      } else {
+        fab.style.display = 'none';
+      }
+    }
+
+    // Scroll to top
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Initialize accordion functionality
+    function initAccordion() {
+      accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        header.addEventListener('click', () => {
+          item.classList.toggle('active');
+        });
+      });
+    }
+
+    // Initialize settings when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      initSettings();
+      initAccordion();
+      toggleFabVisibility();
+      
+      // Pulse animation for new features badge
+      const badge = document.querySelector('.badge');
+      if (badge) {
+        badge.style.animation = 'pulse 2s infinite';
+      }
+    });
+
+    // Event listeners
+    darkModeToggle.addEventListener('change', (e) => {
+      localStorage.setItem('darkMode', e.target.checked);
+      toggleDarkMode(e.target.checked);
+    });
+
+    syncToggle.addEventListener('change', (e) => {
+      localStorage.setItem('syncEnabled', e.target.checked);
+      showToast(e.target.checked ? 'Sync enabled' : 'Sync disabled', 'info');
+    });
+
+    clearDataBtn.addEventListener('click', clearAllData);
+
+    // Theme selection
+    themeOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const theme = option.getAttribute('data-theme');
+        localStorage.setItem('themeColor', theme);
+        setThemeColor(theme);
+        showToast(`Theme changed to ${theme}`, 'success');
+      });
+    });
+
+    // Service worker registration for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(registration => {
+          console.log('ServiceWorker registration successful');
+        }).catch(err => {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+
+    // Online/offline detection
+    window.addEventListener('online', () => {
+      showToast('You are back online', 'success');
+    });
+
+    window.addEventListener('offline', () => {
+      showToast('You are offline. Some features may not work.', 'warning');
+    });
+  </script>
+</body>
+</html>
