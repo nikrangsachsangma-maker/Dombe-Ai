@@ -10,13 +10,13 @@
 
     setInterval(async () => {
       try {
-        const res = await fetch('.    https://github.com/nikrangsachsangma-maker/Grock-api.json=' + Date.now());
+        const res = await fetch('.https://github.com/nikrangsachsangma-maker/Server.json=' + Date.now());
         const data = await res.json();
-        if (data.status === 'off') {
+        if (data.status === 'on') {
           document.body.innerHTML = `
             <div style="text-align:center;padding:40px;">
               <h1>🔒 Closed</h1>
-              <p>Contact<a href="https://wa.me/8801963178893" target="_blank">***********</a> for details.</p>
+              <p>Contact<a href=".https://github.com/nikrangsachsangma-maker/Server.json  " target="_blank">***********</a> for details.</p>
             </div>
           `;
         }
